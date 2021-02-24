@@ -19,13 +19,13 @@ stages:
 build:
   stage: build
   script:
-    - docker build -t hub-peerxp.pwslab.net/devops-assignment/java-2005 .
-    - docker login hub-peerxp.pwslab.net --username $docker_username --password $docker_password
+    - docker build -t hub.gitlab.registery/devops-assignment/java-2005 .
+    - docker login hub.gitlab.registery --username $docker_username --password $docker_password
     - docker images
-    - docker push hub-peerxp.pwslab.net/devops-assignment/java-2005:latest
+    - docker push hub.gitlab.registery/devops-assignment/java-2005:latest
 deploy:
     stage: deploy
     script:
-            - ssh ubuntu@52.66.235.248 "docker login hub-peerxp.pwslab.net -u $docker_username -p $docker_password && docker stop demo-java && docker rm -f $(docker ps -q -a) && docker run -it -d -p 8080:8080 --name demo-java hub-peerxp.pwslab.net/devops-assignment/java-2005:latest"
+            - ssh ubuntu@52.66.235.248 "docker login hub.gitlab.registery -u $docker_username -p $docker_password && docker stop demo-java && docker rm -f $(docker ps -q -a) && docker run -it -d -p 8080:8080 --name demo-java hub.gitlab.registery/devops-assignment/java-2005:latest"
             - echo "assignment completed !!!"
 ```
